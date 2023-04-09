@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Text;
 
 namespace SeaBattle
 {
@@ -27,6 +28,7 @@ namespace SeaBattle
         public static void Init()
         {
             DLLSetup();
+            Console.CursorVisible = false;
         }
 
         private static void DLLSetup()
@@ -39,11 +41,31 @@ namespace SeaBattle
 
         #endregion
 
-        public static void RenderMenu()
+        public static void RenderMenu(MainMenu.MainMenuOptions currentOption)
         {
-            Console.SetCursorPosition(0, 0);
+            //Console.SetCursorPosition(0, 0);
+            Console.Clear();
 
-            Console.WriteLine($"\t{SetColor(255, 32, 32)}Sea{SetColor(32, 32, 255)}Battle\r\n\r\n> {SetColor(32, 255, 32)}Play {SetColor(255, 255, 255)}\r\nSettings\r\nExit");
+            StringBuilder builder = new();
+
+            builder.Append($"\t{SetColor(255, 32, 32)}Sea{SetColor(32, 32, 255)}Battle\r\n\r\n");
+
+            if (currentOption == MainMenu.MainMenuOptions.Play)
+                builder.Append($"{SetColor(255, 255, 255)}> {SetColor(32, 255, 32)}Play\r\n");
+            else
+                builder.Append($"{SetColor(255, 255, 255)}Play\r\n");
+
+            if (currentOption == MainMenu.MainMenuOptions.Settings)
+                builder.Append($"{SetColor(255, 255, 255)}> {SetColor(32, 32, 255)}Settings\r\n");
+            else
+                builder.Append($"{SetColor(255, 255, 255)}Settings\r\n");
+
+            if (currentOption == MainMenu.MainMenuOptions.Exit)
+                builder.Append($"{SetColor(255, 255, 255)}> {SetColor(255, 32, 32)}Exit\r\n");
+            else
+                builder.Append($"{SetColor(255, 255, 255)}Exit\r\n");
+
+            Console.WriteLine(builder.ToString());
         }
 
         private static string SetColor(byte red, byte green, byte blue)

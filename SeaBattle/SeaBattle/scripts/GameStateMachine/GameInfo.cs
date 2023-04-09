@@ -1,4 +1,4 @@
-﻿namespace GameStateMachine
+﻿namespace SeaBattle
 {
     public class GameInfo
     {

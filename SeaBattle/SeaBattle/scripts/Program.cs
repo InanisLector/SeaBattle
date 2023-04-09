@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace SeaBattle
+﻿namespace SeaBattle
 {
     class Program
     {
@@ -12,59 +10,10 @@ namespace SeaBattle
 
         private static void StartGame()
         {
-            SeaBattle game = new();
-            game.Start();
+            GameStateMachine game = new();
+            game.StartGameCycle();
         }
 
-        
-    }
 
-    class SeaBattle
-    {
-        private Map enemyMap;
-        private Map playerMap;
-
-        public void Start()
-        {
-            Init();
-            MainMenu();
-
-            GameCycle();
-        }
-
-        private void MainMenu()
-        {
-            bool inGame = false;
-
-            while (!inGame)
-            {
-                Renderers.RenderMenu();
-            }
-        }
-
-        
-
-        private void Init()
-        {
-            Console.CursorVisible = false;
-        }
-
-        private void GameCycle()
-        {
-            while (!CheckForWin())
-            {
-                Render();
-            }
-        }
-
-        private bool CheckForWin()
-        {
-            return false;
-        }
-
-        private void Render()
-        {
-
-        }
     }
 }
