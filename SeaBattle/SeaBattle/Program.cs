@@ -84,7 +84,7 @@ struct Map
     _shotMap = new bool[8, 8];
 }
 
-    enum mapType
+    public enum mapType
     {
         shot,
         ship
@@ -93,8 +93,14 @@ struct Map
     public (bool ship, bool shot) this[int x, int y]
         => (_shipMap[x, y], _shotMap[x, y]);
 
-    public (bool ship, bool shot) this[int x, int y]
+    public (bool ship, bool shot) this[Vector2 vector]
+        => (_shipMap[vector.x, vector.y], _shotMap[vector.x, vector.y]);
+
+    public (bool ship, bool shot) this[int x, int y, mapType type]
         => (_shipMap[x, y], _shotMap[x, y]);
+
+    public (bool ship, bool shot) this[Vector2 vector, mapType type]
+        => (_shipMap[vector.x, vector.y], _shotMap[vector.x, vector.y]);
 }
 
 struct Vector2
@@ -113,6 +119,22 @@ struct Vector2
     {
         this.x = x;
         this.y = y;
+    }
+
+    public Vector2 RotateByNinetyDegrees()
+        => new Vector2(y, -x);
+
+    public Vector2 RotateByNinetyTimesDegrees(int times)
+    {
+        times = (times + 4) % 4;
+
+        return times switch
+        {
+            1 => new Vector2(y, -x),
+            2 => new Vector2(-x, -y),
+            3 => new Vector2(-y, x),
+            _ => this
+        };
     }
 
     public static Vector2 operator +(Vector2 v1, Vector2 v2)
