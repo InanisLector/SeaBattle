@@ -2,7 +2,11 @@
 {
     public class MainMenu : BaseGameState
     {
-        private int input;
+        private int moveInput;
+
+        private double animationTimer = 0d;
+        private const double animationDelay = 0.5d;
+        private bool isInAnimation = false;
 
         private MainMenuOptions currentOption;
         public enum MainMenuOptions
@@ -11,6 +15,8 @@
             Settings,
             Exit
         }
+
+        public const int MainMenuOptionsLen = 3;
 
         public MainMenu(GameStateMachine stateMachine, GameInfo info) :
             base("main menu", stateMachine, info)
@@ -22,22 +28,32 @@
         {
             base.Update();
 
-            input = GetInput();
-
-            if (input != 0)
-                somethingChanged = true;
+            moveInput = GetMoveInput();
             
-            currentOption += input;
+            ChangeOption();
+
+            AnimationTimer();
         }
 
-        public override void Renderer()
+        private void ChangeOption()
         {
-            base.Renderer();
+            if (moveInput == 0)
+                return;
 
-            Renderers.RenderMenu(currentOption);
+            currentOption += moveInput;
+
+            currentOption = currentOption < 0 ? currentOption + MainMenuOptionsLen : currentOption;
+            currentOption = currentOption >= (MainMenuOptions)MainMenuOptionsLen ? 0 : currentOption;
+
+            somethingChanged = true;
         }
 
-        private int GetInput()
+        protected override void Render()
+        {
+            Renderers.RenderMenu(currentOption, isInAnimation);
+        }
+
+        private int GetMoveInput()
         {
             return inputKeys.Key switch
             {
@@ -47,6 +63,25 @@
                 ConsoleKey.DownArrow => 1,
                 _ => 0
             };
+        }
+
+        private void AnimationTimer()
+        {
+            if (somethingChanged)
+            {
+                animationTimer = 0;
+                isInAnimation = false;
+                return;
+            }
+
+            animationTimer += Time.deltaTime;
+
+            if (animationTimer > animationDelay)
+            {
+                animationTimer = 0;
+                isInAnimation = !isInAnimation;
+                somethingChanged = true;
+            }
         }
     }
 }

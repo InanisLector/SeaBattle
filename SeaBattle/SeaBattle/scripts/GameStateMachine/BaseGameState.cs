@@ -26,13 +26,16 @@
             inputKeys = GetInput();
         }
 
-        public virtual void Renderer()
+        public virtual void CheckForRender()
         {
             if(!somethingChanged)
                 return;
 
+            Render();
             somethingChanged = false;
         }
+
+        protected virtual void Render() { }
 
         public virtual void Exit() { }
 

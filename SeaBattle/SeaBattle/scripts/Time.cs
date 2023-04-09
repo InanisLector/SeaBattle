@@ -16,7 +16,8 @@ namespace SeaBattle
 
         public static void NewFrame()
         {
-            deltaTime = _timer.Elapsed.TotalMilliseconds;
+            deltaTime = _timer.Elapsed.Milliseconds / 1000d;
+
             _timer.Restart();
         }
             

@@ -35,9 +35,10 @@
 
         public void Update()
         {
+            Thread.Sleep(1);
             Time.NewFrame();
             _currentState.Update();
-            _currentState.Renderer();
+            _currentState.CheckForRender();
         }
 
         public void ChangeCurrentState(BaseGameState newState)

@@ -41,7 +41,7 @@ namespace SeaBattle
 
         #endregion
 
-        public static void RenderMenu(MainMenu.MainMenuOptions currentOption)
+        public static void RenderMenu(MainMenu.MainMenuOptions currentOption, bool isAnimated)
         {
             //Console.SetCursorPosition(0, 0);
             Console.Clear();
@@ -51,22 +51,25 @@ namespace SeaBattle
             builder.Append($"\t{SetColor(255, 32, 32)}Sea{SetColor(32, 32, 255)}Battle\r\n\r\n");
 
             if (currentOption == MainMenu.MainMenuOptions.Play)
-                builder.Append($"{SetColor(255, 255, 255)}> {SetColor(32, 255, 32)}Play\r\n");
+                builder.Append($"{SetColor(255, 255, 255)}{MainMenuAnimation(isAnimated)}{SetColor(32, 255, 32)}Play\r\n");
             else
                 builder.Append($"{SetColor(255, 255, 255)}Play\r\n");
 
             if (currentOption == MainMenu.MainMenuOptions.Settings)
-                builder.Append($"{SetColor(255, 255, 255)}> {SetColor(32, 32, 255)}Settings\r\n");
+                builder.Append($"{SetColor(255, 255, 255)}{MainMenuAnimation(isAnimated)}{SetColor(115, 115, 255)}Settings\r\n");
             else
                 builder.Append($"{SetColor(255, 255, 255)}Settings\r\n");
 
             if (currentOption == MainMenu.MainMenuOptions.Exit)
-                builder.Append($"{SetColor(255, 255, 255)}> {SetColor(255, 32, 32)}Exit\r\n");
+                builder.Append($"{SetColor(255, 255, 255)}{MainMenuAnimation(isAnimated)}{SetColor(255, 32, 32)}Exit\r\n");
             else
                 builder.Append($"{SetColor(255, 255, 255)}Exit\r\n");
 
             Console.WriteLine(builder.ToString());
         }
+
+        private static string MainMenuAnimation(bool isAnimated)
+            => isAnimated ? " >" : "> ";
 
         private static string SetColor(byte red, byte green, byte blue)
             => $"\x1b[38;2;{red};{green};{blue}m";
