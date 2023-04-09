@@ -10,7 +10,7 @@
 
         private static void StartGame()
         {
-            GameStateMachine game = new();
+            GameSceneManager game = new();
             game.StartGameCycle();
         }
 

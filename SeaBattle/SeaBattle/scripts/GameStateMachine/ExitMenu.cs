@@ -1,46 +1,51 @@
-﻿namespace SeaBattle
+﻿using static SeaBattle.MainMenu;
+
+namespace SeaBattle
 {
-    public class MainMenu : BaseGameState
+    public class ExitMenu : BaseGameState
     {
         private int moveInput;
         private bool selectInput;
+        private bool deselectInput;
 
         private double _animationTimer = 0d;
         private const double animationDelay = 0.5d;
         private bool _isInAnimation = false;
 
-        private MainMenuOptions currentOption;
-        public enum MainMenuOptions
+        private ExitMenuOptions currentOption;
+        public enum ExitMenuOptions
         {
-            Play,
-            Settings,
+            Back, 
             Exit
         }
-        public const int MainMenuOptionsLen = 3;
+        public const int ExitMenuOptionsLen = 2;
 
-        public MainMenu(GameSceneManager sceneManager, GameInfo info) :
-            base("main menu", sceneManager, info) { }
+
+        public ExitMenu(GameSceneManager sceneManager, GameInfo info) :
+            base("exit menu", sceneManager, info) { }
 
         public override void Update()
         {
             base.Update();
 
             moveInput = GetMoveInput();
-            selectInput = GetSelectInput();            
+            selectInput = GetSelectInput();
+            deselectInput = GetDeselectInput();
 
             ChangeOption();
             SelectOption();
+            DeselectOption();
 
             AnimationTimer();
         }
 
         protected override void Render()
         {
-            Renderers.RenderMainMenu(currentOption, _isInAnimation);
+            Renderers.RenderExitMenu(currentOption, _isInAnimation);
         }
 
         #region Inputs
-        
+
         private int GetMoveInput()
         {
             return inputKeys.Key switch
@@ -52,6 +57,7 @@
                 _ => 0
             };
         }
+
         private bool GetSelectInput()
         {
             return inputKeys.Key switch
@@ -59,6 +65,17 @@
                 ConsoleKey.D => true,
                 ConsoleKey.RightArrow => true,
                 ConsoleKey.Enter => true,
+                _ => false
+            };
+        }
+
+        private bool GetDeselectInput()
+        {
+            return inputKeys.Key switch
+            {
+                ConsoleKey.A => true,
+                ConsoleKey.LeftArrow => true,
+                ConsoleKey.Escape => true,
                 _ => false
             };
         }
@@ -72,34 +89,36 @@
 
             currentOption += moveInput;
 
-            currentOption = currentOption < 0 ? currentOption + MainMenuOptionsLen : currentOption;
-            currentOption = currentOption >= (MainMenuOptions)MainMenuOptionsLen ? 0 : currentOption;
+            currentOption = currentOption < 0 ? currentOption + ExitMenuOptionsLen : currentOption;
+            currentOption = currentOption >= (ExitMenuOptions)ExitMenuOptionsLen ? 0 : currentOption;
 
             somethingChanged = true;
         }
 
         private void SelectOption()
         {
-            if(!selectInput)
+            if (!selectInput)
                 return;
 
             switch (currentOption)
             {
-                case MainMenuOptions.Play:
-                    Console.WriteLine("Not finished yet");
+                case ExitMenuOptions.Back:
+                    SceneManager.ChangeCurrentState(SceneManager.mainMenu);
                     break;
 
-                case MainMenuOptions.Settings:
-                    Console.WriteLine("Here too");
-                    break;
-
-                case MainMenuOptions.Exit:
-                    SceneManager.ChangeCurrentState(SceneManager.exitMenu);
+                case ExitMenuOptions.Exit:
+                    Environment.Exit(0);
                     break;
 
                 default:
                     throw new IndexOutOfRangeException();
             }
+        }
+
+        private void DeselectOption()
+        {
+            if (deselectInput)
+                SceneManager.ChangeCurrentState(SceneManager.mainMenu);
         }
 
         private void AnimationTimer()

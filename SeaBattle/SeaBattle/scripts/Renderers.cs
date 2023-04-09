@@ -41,7 +41,7 @@ namespace SeaBattle
 
         #endregion
 
-        public static void RenderMenu(MainMenu.MainMenuOptions currentOption, bool isAnimated)
+        public static void RenderMainMenu(MainMenu.MainMenuOptions currentOption, bool isAnimated)
         {
             //Console.SetCursorPosition(0, 0);
             Console.Clear();
@@ -51,24 +51,51 @@ namespace SeaBattle
             builder.Append($"\t{SetColor(255, 32, 32)}Sea{SetColor(32, 32, 255)}Battle\r\n\r\n");
 
             if (currentOption == MainMenu.MainMenuOptions.Play)
-                builder.Append($"{SetColor(255, 255, 255)}{MainMenuAnimation(isAnimated)}{SetColor(32, 255, 32)}Play\r\n");
+                builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(32, 255, 32)}Play\r\n");
             else
                 builder.Append($"{SetColor(255, 255, 255)}Play\r\n");
 
             if (currentOption == MainMenu.MainMenuOptions.Settings)
-                builder.Append($"{SetColor(255, 255, 255)}{MainMenuAnimation(isAnimated)}{SetColor(115, 115, 255)}Settings\r\n");
+                builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(115, 115, 255)}Settings\r\n");
             else
                 builder.Append($"{SetColor(255, 255, 255)}Settings\r\n");
 
             if (currentOption == MainMenu.MainMenuOptions.Exit)
-                builder.Append($"{SetColor(255, 255, 255)}{MainMenuAnimation(isAnimated)}{SetColor(255, 32, 32)}Exit\r\n");
+                builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(255, 32, 32)}Exit");
             else
-                builder.Append($"{SetColor(255, 255, 255)}Exit\r\n");
+                builder.Append($"{SetColor(255, 255, 255)}Exit");
+
+            Console.WriteLine(builder.ToString());
+        }
+        
+        public static void RenderExitMenu(ExitMenu.ExitMenuOptions currentOption, bool isAnimated)
+        {
+            //Console.SetCursorPosition(0, 0);
+            Console.Clear();
+
+            StringBuilder builder = new();
+
+            builder.Append($"\t{SetColor(255, 32, 32)}Sea{SetColor(32, 32, 255)}Battle\r\n\r\n");
+            builder.Append($"{SetColor(255, 255, 255)}Play\r\n");
+            builder.Append("Settings\r\n");
+            builder.Append($" >{SetColor(255, 32, 32)}Exit\t");
+
+            if (currentOption == ExitMenu.ExitMenuOptions.Back)
+                builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(32, 255, 32)}Back\r\n");
+            else
+                builder.Append($"{SetColor(255, 255, 255)}Back\r\n");
+
+            builder.Append("\t");
+
+            if (currentOption == ExitMenu.ExitMenuOptions.Exit)
+                builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(255, 32, 32)}Exit");
+            else
+                builder.Append($"{SetColor(255, 255, 255)}Exit");
 
             Console.WriteLine(builder.ToString());
         }
 
-        private static string MainMenuAnimation(bool isAnimated)
+        private static string MenuAnimation(bool isAnimated)
             => isAnimated ? " >" : "> ";
 
         private static string SetColor(byte red, byte green, byte blue)

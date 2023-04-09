@@ -1,12 +1,13 @@
 ﻿namespace SeaBattle
 {
-    public class GameStateMachine
+    public class GameSceneManager
     {
-        public MainMenu mainMenu;
+        public MainMenu mainMenu { get; private set; }
+        public ExitMenu exitMenu { get; private set; }
 
         private BaseGameState _currentState;
 
-        public GameStateMachine()
+        public GameSceneManager()
         {
             InitializeStates();
 
@@ -18,6 +19,7 @@
             GameInfo info = new GameInfo();
 
             mainMenu = new(this, info);
+            exitMenu = new(this, info);
         }
 
         private BaseGameState GetInitialState()

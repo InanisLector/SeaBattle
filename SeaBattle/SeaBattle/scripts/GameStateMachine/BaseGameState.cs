@@ -3,23 +3,26 @@
     public class BaseGameState
     {
         public readonly string name;
-        protected readonly GameStateMachine stateMachine;
+        protected readonly GameSceneManager SceneManager;
         protected readonly GameInfo info;
 
         protected bool somethingChanged = true;
 
         protected ConsoleKeyInfo inputKeys { get; private set; }
 
-        public BaseGameState(string name, GameStateMachine stateMachine, GameInfo info)
+        public BaseGameState(string name, GameSceneManager sceneManager, GameInfo info)
         {
             this.name = name;
-            this.stateMachine = stateMachine;
+            this.SceneManager = sceneManager;
             this.info = info;
         }
 
         #region State logic
 
-        public virtual void Enter() { }
+        public virtual void Enter()
+        {
+            somethingChanged = true;
+        }
 
         public virtual void Update()
         {
