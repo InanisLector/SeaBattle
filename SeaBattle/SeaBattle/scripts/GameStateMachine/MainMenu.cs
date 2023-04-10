@@ -5,8 +5,8 @@
         private int moveInput;
         private bool selectInput;
 
-        private double _animationTimer = 0d;
-        private const double animationDelay = 0.5d;
+        private int _animationTimer = 0;
+        private const int animationDelay = 300;
         private bool _isInAnimation = false;
 
         private MainMenuOptions currentOption;

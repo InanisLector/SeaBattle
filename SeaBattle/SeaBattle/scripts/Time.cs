@@ -6,7 +6,7 @@ namespace SeaBattle
     {
         private static Stopwatch _timer = new Stopwatch();
 
-        public static double deltaTime;
+        public static int deltaTime; // Milliseconds
 
         public static void Start()
         {
@@ -16,7 +16,7 @@ namespace SeaBattle
 
         public static void NewFrame()
         {
-            deltaTime = _timer.Elapsed.Milliseconds / 1000d;
+            deltaTime = _timer.Elapsed.Milliseconds;
 
             _timer.Restart();
         }

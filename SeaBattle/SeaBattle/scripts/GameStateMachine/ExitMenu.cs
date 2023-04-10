@@ -8,8 +8,8 @@ namespace SeaBattle
         private bool selectInput;
         private bool deselectInput;
 
-        private double _animationTimer = 0d;
-        private const double animationDelay = 0.5d;
+        private int _animationTimer = 0;
+        private const int animationDelay = 300;
         private bool _isInAnimation = false;
 
         private ExitMenuOptions currentOption;
