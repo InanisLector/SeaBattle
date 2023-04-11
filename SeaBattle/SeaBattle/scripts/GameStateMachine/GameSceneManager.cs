@@ -4,6 +4,7 @@
     {
         public MainMenu mainMenu { get; private set; }
         public ExitMenu exitMenu { get; private set; }
+        public PlayMenu playMenu { get; private set; }
 
         private BaseGameState _currentState;
 
@@ -20,6 +21,7 @@
 
             mainMenu = new(this, info);
             exitMenu = new(this, info);
+            playMenu = new(this, info);
         }
 
         private BaseGameState GetInitialState()

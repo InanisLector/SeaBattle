@@ -1,46 +1,51 @@
-﻿namespace SeaBattle
+﻿using static SeaBattle.ExitMenu;
+
+namespace SeaBattle
 {
-    public class MainMenu : BaseGameState
+    public class PlayMenu : BaseGameState
     {
         private int moveInput;
         private bool selectInput;
+        private bool deselectInput;
 
         private int _animationTimer = 0;
         private const int animationDelay = 300;
         private bool _isInAnimation = false;
 
-        private MainMenuOptions currentOption;
-        public enum MainMenuOptions
-        {
-            Play,
-            Settings,
-            Exit
-        }
-        public const int MainMenuOptionsLen = 3;
+        private PlayMenuOptions currentOption;
 
-        public MainMenu(GameSceneManager sceneManager, GameInfo info) :
-            base("main menu", sceneManager, info) { }
+        public enum PlayMenuOptions
+        {
+            SinglePlayer,
+            Multiplayer
+        }
+        public const int PlayMenuOptionsLen = 2;
+
+        public PlayMenu(GameSceneManager sceneManager, GameInfo info) :
+            base("play menu", sceneManager, info) { }
 
         public override void Update()
         {
             base.Update();
 
             moveInput = GetMoveInput();
-            selectInput = GetSelectInput();            
+            selectInput = GetSelectInput();
+            deselectInput = GetDeselectInput();
 
             ChangeOption();
             SelectOption();
+            DeselectOption();
 
             AnimationTimer();
         }
-
+        
         protected override void Render()
         {
-            Renderers.RenderMainMenu(currentOption, _isInAnimation);
+            Renderers.RenderPlayMenu(currentOption, _isInAnimation);
         }
 
         #region Inputs
-        
+
         private int GetMoveInput()
         {
             return inputKeys.Key switch
@@ -52,6 +57,7 @@
                 _ => 0
             };
         }
+
         private bool GetSelectInput()
         {
             return inputKeys.Key switch
@@ -63,9 +69,21 @@
             };
         }
 
+        private bool GetDeselectInput()
+        {
+            return inputKeys.Key switch
+            {
+                ConsoleKey.A => true,
+                ConsoleKey.LeftArrow => true,
+                ConsoleKey.Escape => true,
+                _ => false
+            };
+        }
+
         #endregion
 
         #region Menu navigation
+
         private void ChangeOption()
         {
             if (moveInput == 0)
@@ -73,12 +91,11 @@
 
             currentOption += moveInput;
 
-            currentOption = currentOption < 0 ? currentOption + MainMenuOptionsLen : currentOption;
-            currentOption = currentOption >= (MainMenuOptions)MainMenuOptionsLen ? 0 : currentOption;
+            currentOption = currentOption < 0 ? currentOption + ExitMenuOptionsLen : currentOption;
+            currentOption = currentOption >= (PlayMenuOptions)PlayMenuOptionsLen ? 0 : currentOption;
 
             somethingChanged = true;
         }
-
         private void SelectOption()
         {
             if (!selectInput)
@@ -86,21 +103,23 @@
 
             switch (currentOption)
             {
-                case MainMenuOptions.Play:
-                    SceneManager.ChangeCurrentState(SceneManager.playMenu);
+                case PlayMenuOptions.SinglePlayer:
+                    SceneManager.ChangeCurrentState(SceneManager.mainMenu);
                     break;
 
-                case MainMenuOptions.Settings:
-                    Console.WriteLine("Not finished yet");
-                    break;
-
-                case MainMenuOptions.Exit:
-                    SceneManager.ChangeCurrentState(SceneManager.exitMenu);
+                case PlayMenuOptions.Multiplayer:
+                    SceneManager.ChangeCurrentState(SceneManager.mainMenu);
                     break;
 
                 default:
                     throw new IndexOutOfRangeException();
             }
+        }
+
+        private void DeselectOption()
+        {
+            if (deselectInput)
+                SceneManager.ChangeCurrentState(SceneManager.mainMenu);
         }
 
         #endregion

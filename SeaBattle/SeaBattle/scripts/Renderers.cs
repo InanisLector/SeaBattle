@@ -95,6 +95,29 @@ namespace SeaBattle
             Console.WriteLine(builder.ToString());
         }
 
+        public static void RenderPlayMenu(PlayMenu.PlayMenuOptions currentOption, bool isAnimated)
+        {
+            //Console.SetCursorPosition(0, 0);
+            Console.Clear();
+
+            StringBuilder builder = new();
+
+            builder.Append($"\t{SetColor(255, 32, 32)}Sea{SetColor(32, 32, 255)}Battle\r\n\r\n");
+            builder.Append($"{SetColor(255, 255, 255)} >{SetColor(32, 255, 32)}Play\t"); 
+                if (currentOption == PlayMenu.PlayMenuOptions.SinglePlayer)
+                    builder.Append($" {SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(32, 255, 32)}Single Player\r\n");
+                else
+                    builder.Append($" {SetColor(255, 255, 255)}Single Player\r\n");
+            builder.Append($"{SetColor(255, 255, 255)}Settings");
+                if (currentOption == PlayMenu.PlayMenuOptions.Multiplayer)
+                    builder.Append($" {SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(255, 32, 32)}Multi Player\r\n");
+                else
+                    builder.Append($" {SetColor(255, 255, 255)}Multi Player\r\n");
+            builder.Append($"{SetColor(255, 255, 255)}Exit");
+
+            Console.WriteLine(builder.ToString());
+        }
+
         private static string MenuAnimation(bool isAnimated)
             => isAnimated ? " >" : "> ";
 

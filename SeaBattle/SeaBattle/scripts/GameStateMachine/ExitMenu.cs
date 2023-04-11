@@ -1,6 +1,4 @@
-﻿using static SeaBattle.MainMenu;
-
-namespace SeaBattle
+﻿namespace SeaBattle
 {
     public class ExitMenu : BaseGameState
     {
@@ -82,6 +80,8 @@ namespace SeaBattle
 
         #endregion
 
+        #region Menu navigation
+
         private void ChangeOption()
         {
             if (moveInput == 0)
@@ -94,7 +94,6 @@ namespace SeaBattle
 
             somethingChanged = true;
         }
-
         private void SelectOption()
         {
             if (!selectInput)
@@ -121,6 +120,8 @@ namespace SeaBattle
                 SceneManager.ChangeCurrentState(SceneManager.mainMenu);
         }
 
+        #endregion
+        
         private void AnimationTimer()
         {
             if (somethingChanged)
