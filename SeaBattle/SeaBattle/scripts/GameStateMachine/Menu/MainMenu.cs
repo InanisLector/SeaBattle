@@ -91,7 +91,6 @@
                     break;
 
                 case MainMenuOptions.Settings:
-                    Console.WriteLine("Not finished yet");
                     break;
 
                 case MainMenuOptions.Exit:

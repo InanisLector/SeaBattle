@@ -56,9 +56,9 @@ namespace SeaBattle
                 builder.Append($"{SetColor(255, 255, 255)}Play\r\n");
 
             if (currentOption == MainMenu.MainMenuOptions.Settings)
-                builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(115, 115, 255)}Settings\r\n");
+                builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(false)}{SetColor(144, 144, 144)}Settings\r\n");
             else
-                builder.Append($"{SetColor(255, 255, 255)}Settings\r\n");
+                builder.Append($"{SetColor(144, 144, 144)}Settings\r\n");
 
             if (currentOption == MainMenu.MainMenuOptions.Exit)
                 builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(255, 32, 32)}Exit");
@@ -76,7 +76,7 @@ namespace SeaBattle
             StringBuilder builder = new();
 
             builder.Append($"\t{SetColor(255, 32, 32)}Sea{SetColor(32, 32, 255)}Battle\r\n\r\n");
-            builder.Append($"{SetColor(255, 255, 255)}Play\r\n");
+            builder.Append($"{SetColor(144, 144, 144)}Play\r\n");
             builder.Append("Settings\r\n");
             builder.Append($" >{SetColor(255, 32, 32)}Exit\t");
 
@@ -108,12 +108,12 @@ namespace SeaBattle
                     builder.Append($" {SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(32, 255, 32)}Single Player\r\n");
                 else
                     builder.Append($" {SetColor(255, 255, 255)}Single Player\r\n");
-            builder.Append($"{SetColor(255, 255, 255)}Settings");
+            builder.Append($"{SetColor(144, 144, 144)}Settings");
                 if (currentOption == PlayMenu.PlayMenuOptions.Multiplayer)
-                    builder.Append($" {SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(255, 32, 32)}Multi Player\r\n");
+                    builder.Append($" {SetColor(255, 255, 255)}{MenuAnimation(false)}{SetColor(144, 144, 144)}Multi Player\r\n");
                 else
-                    builder.Append($" {SetColor(255, 255, 255)}Multi Player\r\n");
-            builder.Append($"{SetColor(255, 255, 255)}Exit");
+                    builder.Append($" {SetColor(144, 144, 144)}Multi Player\r\n");
+            builder.Append($"{SetColor(144, 144, 144)}Exit");
 
             Console.WriteLine(builder.ToString());
         }
