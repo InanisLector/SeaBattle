@@ -50,9 +50,6 @@
                 return Console.ReadKey(true);
 
             return new ConsoleKeyInfo();
-
-            
         }
-
     }
 }
