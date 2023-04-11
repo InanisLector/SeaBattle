@@ -106,7 +106,7 @@
                     break;
 
                 case ExitMenuOptions.Exit:
-                    Environment.Exit(0);
+                    SceneManager.EndProcess();
                     break;
 
                 default:

@@ -2,7 +2,7 @@
 {
     #pragma warning disable CS0661 // Тип определяет оператор == или оператор !=, но не переопределяет Object.GetHashCode()
     #pragma warning disable CS0660 // Тип определяет оператор == или оператор !=, но не переопределяет Object.Equals(object o)
-    struct Vector2
+    public struct Vector2
     {
         public int x;
         public int y;

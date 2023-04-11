@@ -2,7 +2,7 @@
 
 namespace SeaBattle
 {
-    struct Map
+    public struct Map
     {
         private bool[,] _shipMap;
         private bool[,] _shotMap;

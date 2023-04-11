@@ -104,11 +104,9 @@ namespace SeaBattle
             switch (currentOption)
             {
                 case PlayMenuOptions.SinglePlayer:
-                    SceneManager.ChangeCurrentState(SceneManager.mainMenu);
                     break;
 
                 case PlayMenuOptions.Multiplayer:
-                    SceneManager.ChangeCurrentState(SceneManager.mainMenu);
                     break;
 
                 default:

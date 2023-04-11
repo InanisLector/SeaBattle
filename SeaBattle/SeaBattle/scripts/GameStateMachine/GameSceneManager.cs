@@ -8,6 +8,8 @@
 
         private BaseGameState _currentState;
 
+        private bool isWorking = true;
+
         public GameSceneManager()
         {
             InitializeStates();
@@ -31,10 +33,12 @@
         
         public void StartGameCycle()
         {
-            while (true)
+            while (isWorking)
             {
                 Update();
             }
+
+            Environment.Exit(0);
         }
 
         public void Update()
@@ -51,6 +55,11 @@
             _currentState = newState;
             _currentState.Enter();
             _currentState.Update();
+        }
+
+        public void EndProcess()
+        {
+            isWorking = false;
         }
         
         #endregion
