@@ -1,4 +1,6 @@
-﻿namespace SeaBattle
+﻿using IntVector2;
+
+namespace SeaBattle
 {
     public class BaseGameState
     {
@@ -91,9 +93,9 @@
         #region Menu input
 
         public static (int direction, bool select, bool deselect) MenuInputHandler(this ConsoleKeyInfo keyInput)
-            => (GetMoveInput(keyInput), GetSelectInput(keyInput), GetDeselectInput(keyInput));
+            => (GetMenuMoveInput(keyInput), GetMenuSelectInput(keyInput), GetMenuDeselectInput(keyInput));
 
-        private static int GetMoveInput(ConsoleKeyInfo inputKeys)
+        private static int GetMenuMoveInput(ConsoleKeyInfo inputKeys)
         {
             return inputKeys.Key switch
             {
@@ -105,7 +107,7 @@
             };
         }
 
-        private static bool GetSelectInput(ConsoleKeyInfo inputKeys)
+        private static bool GetMenuSelectInput(ConsoleKeyInfo inputKeys)
         {
             return inputKeys.Key switch
             {
@@ -116,12 +118,53 @@
             };
         }
 
-        private static bool GetDeselectInput(ConsoleKeyInfo inputKeys)
+        private static bool GetMenuDeselectInput(ConsoleKeyInfo inputKeys)
         {
             return inputKeys.Key switch
             {
                 ConsoleKey.A => true,
                 ConsoleKey.LeftArrow => true,
+                ConsoleKey.Escape => true,
+                _ => false
+            };
+        }
+
+        #endregion
+
+        #region Game input
+
+        public static (Vector2 direction, bool select, bool deselect) GameInputHandler(this ConsoleKeyInfo keyInput)
+            => (GetGameMoveInput(keyInput), GetGameSelectInput(keyInput), GetGameDeselectInput(keyInput));
+
+        private static Vector2 GetGameMoveInput(ConsoleKeyInfo inputKeys)
+        {
+            return inputKeys.Key switch
+            {
+                ConsoleKey.W => Vector2.Up,
+                ConsoleKey.UpArrow => Vector2.Up,
+                ConsoleKey.A => Vector2.Left,
+                ConsoleKey.LeftArrow => Vector2.Left,
+                ConsoleKey.S => Vector2.Down,
+                ConsoleKey.DownArrow => Vector2.Down,
+                ConsoleKey.D => Vector2.Right,
+                ConsoleKey.RightArrow => Vector2.Right,
+                _ => Vector2.Zero,
+            };
+        }
+
+        private static bool GetGameSelectInput(ConsoleKeyInfo inputKeys)
+        {
+            return inputKeys.Key switch
+            {
+                ConsoleKey.Enter => true,
+                _ => false
+            };
+        }
+
+        private static bool GetGameDeselectInput(ConsoleKeyInfo inputKeys)
+        {
+            return inputKeys.Key switch
+            {
                 ConsoleKey.Escape => true,
                 _ => false
             };

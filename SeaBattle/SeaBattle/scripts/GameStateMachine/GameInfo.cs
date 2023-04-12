@@ -3,9 +3,7 @@
     public class GameInfo
     {
         public string nickname = "name";
-        public GameInfo()
-        {
-            
-        }
+        public Map player1map;
+        public GameInfo() { }
     }
 }
