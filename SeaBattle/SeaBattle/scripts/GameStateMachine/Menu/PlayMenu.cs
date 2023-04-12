@@ -4,14 +4,6 @@ namespace SeaBattle
 {
     public class PlayMenu : BaseGameState
     {
-        private int moveInput;
-        private bool selectInput;
-        private bool deselectInput;
-
-        private int _animationTimer = 0;
-        private const int animationDelay = 300;
-        private bool _isInAnimation = false;
-
         private PlayMenuOptions currentOption;
 
         public enum PlayMenuOptions
@@ -28,59 +20,18 @@ namespace SeaBattle
         {
             base.Update();
 
-            moveInput = GetMoveInput();
-            selectInput = GetSelectInput();
-            deselectInput = GetDeselectInput();
+            (moveInput, selectInput, deselectInput) = inputKeys.MenuInputHandler();
 
             ChangeOption();
             SelectOption();
             DeselectOption();
-
-            AnimationTimer();
         }
         
         protected override void Render()
         {
             Renderers.RenderPlayMenu(currentOption, _isInAnimation);
         }
-
-        #region Inputs
-
-        private int GetMoveInput()
-        {
-            return inputKeys.Key switch
-            {
-                ConsoleKey.W => -1,
-                ConsoleKey.UpArrow => -1,
-                ConsoleKey.S => 1,
-                ConsoleKey.DownArrow => 1,
-                _ => 0
-            };
-        }
-
-        private bool GetSelectInput()
-        {
-            return inputKeys.Key switch
-            {
-                ConsoleKey.D => true,
-                ConsoleKey.RightArrow => true,
-                ConsoleKey.Enter => true,
-                _ => false
-            };
-        }
-
-        private bool GetDeselectInput()
-        {
-            return inputKeys.Key switch
-            {
-                ConsoleKey.A => true,
-                ConsoleKey.LeftArrow => true,
-                ConsoleKey.Escape => true,
-                _ => false
-            };
-        }
-
-        #endregion
+        
 
         #region Menu navigation
 
@@ -117,28 +68,9 @@ namespace SeaBattle
         private void DeselectOption()
         {
             if (deselectInput)
-                SceneManager.ChangeCurrentState(SceneManager.mainMenu);
+                sceneManager.ChangeCurrentState(sceneManager.mainMenu);
         }
 
         #endregion
-
-        private void AnimationTimer()
-        {
-            if (somethingChanged)
-            {
-                _animationTimer = 0;
-                _isInAnimation = false;
-                return;
-            }
-
-            _animationTimer += Time.deltaTime;
-
-            if (_animationTimer > animationDelay)
-            {
-                _animationTimer = 0;
-                _isInAnimation = !_isInAnimation;
-                somethingChanged = true;
-            }
-        }
     }
 }

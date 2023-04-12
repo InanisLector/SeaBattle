@@ -43,7 +43,7 @@
 
         public void Update()
         {
-            Thread.Sleep(1);
+            Thread.Sleep(1); // For proper animations
             Time.NewFrame();
             _currentState.Update();
             _currentState.CheckForRender();
