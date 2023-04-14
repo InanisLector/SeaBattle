@@ -1,6 +1,6 @@
 ﻿using IntVector2;
 
-namespace SeaBattle
+namespace SeaBattle.scripts.GameStateMachine
 {
     public class BaseGameState
     {
@@ -10,7 +10,7 @@ namespace SeaBattle
 
         protected bool somethingChanged = true;
 
-        protected int moveInput;
+        protected Vector2 moveInput;
         protected bool selectInput;
         protected bool deselectInput;
 

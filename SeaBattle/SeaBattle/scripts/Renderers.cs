@@ -1,7 +1,9 @@
 ﻿using System.Runtime.InteropServices;
+using SeaBattle.scripts.GameStateMachine.Menu;
 using System.Text;
+using IntVector2;
 
-namespace SeaBattle
+namespace SeaBattle.scripts
 {
     static class Renderers
     {
@@ -41,6 +43,8 @@ namespace SeaBattle
 
         #endregion
 
+        #region Menu renderers
+
         public static void RenderMainMenu(MainMenu.MainMenuOptions currentOption, bool isAnimated)
         {
             //Console.SetCursorPosition(0, 0);
@@ -48,22 +52,22 @@ namespace SeaBattle
 
             StringBuilder builder = new();
 
-            builder.Append($"\t{SetColor(255, 32, 32)}Sea{SetColor(32, 32, 255)}Battle\r\n\r\n");
+            builder.Append($"\t{SetTextColor(255, 32, 32)}Sea{SetTextColor(32, 32, 255)}Battle\r\n\r\n");
 
             if (currentOption == MainMenu.MainMenuOptions.Play)
-                builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(32, 255, 32)}Play\r\n");
+                builder.Append($"{SetTextColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetTextColor(32, 255, 32)}Play\r\n");
             else
-                builder.Append($"{SetColor(255, 255, 255)}Play\r\n");
+                builder.Append($"{SetTextColor(255, 255, 255)}Play\r\n");
 
             if (currentOption == MainMenu.MainMenuOptions.Settings)
-                builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(false)}{SetColor(144, 144, 144)}Settings\r\n");
+                builder.Append($"{SetTextColor(255, 255, 255)}{MenuAnimation(false)}{SetTextColor(144, 144, 144)}Settings\r\n");
             else
-                builder.Append($"{SetColor(144, 144, 144)}Settings\r\n");
+                builder.Append($"{SetTextColor(144, 144, 144)}Settings\r\n");
 
             if (currentOption == MainMenu.MainMenuOptions.Exit)
-                builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(255, 32, 32)}Exit");
+                builder.Append($"{SetTextColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetTextColor(255, 32, 32)}Exit");
             else
-                builder.Append($"{SetColor(255, 255, 255)}Exit");
+                builder.Append($"{SetTextColor(255, 255, 255)}Exit");
 
             Console.WriteLine(builder.ToString());
         }
@@ -75,22 +79,22 @@ namespace SeaBattle
 
             StringBuilder builder = new();
 
-            builder.Append($"\t{SetColor(255, 32, 32)}Sea{SetColor(32, 32, 255)}Battle\r\n\r\n");
-            builder.Append($"{SetColor(144, 144, 144)}Play\r\n");
+            builder.Append($"\t{SetTextColor(255, 32, 32)}Sea{SetTextColor(32, 32, 255)}Battle\r\n\r\n");
+            builder.Append($"{SetTextColor(144, 144, 144)}Play\r\n");
             builder.Append("Settings\r\n");
-            builder.Append($" >{SetColor(255, 32, 32)}Exit\t");
+            builder.Append($" >{SetTextColor(255, 32, 32)}Exit\t");
 
             if (currentOption == ExitMenu.ExitMenuOptions.Back)
-                builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(32, 255, 32)}Back\r\n");
+                builder.Append($"{SetTextColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetTextColor(32, 255, 32)}Back\r\n");
             else
-                builder.Append($"{SetColor(255, 255, 255)}Back\r\n");
+                builder.Append($"{SetTextColor(255, 255, 255)}Back\r\n");
 
             builder.Append("\t");
 
             if (currentOption == ExitMenu.ExitMenuOptions.Exit)
-                builder.Append($"{SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(255, 32, 32)}Exit");
+                builder.Append($"{SetTextColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetTextColor(255, 32, 32)}Exit");
             else
-                builder.Append($"{SetColor(255, 255, 255)}Exit");
+                builder.Append($"{SetTextColor(255, 255, 255)}Exit");
 
             Console.WriteLine(builder.ToString());
         }
@@ -102,18 +106,18 @@ namespace SeaBattle
 
             StringBuilder builder = new();
 
-            builder.Append($"\t{SetColor(255, 32, 32)}Sea{SetColor(32, 32, 255)}Battle\r\n\r\n");
-            builder.Append($"{SetColor(255, 255, 255)} >{SetColor(32, 255, 32)}Play\t"); 
+            builder.Append($"\t{SetTextColor(255, 32, 32)}Sea{SetTextColor(32, 32, 255)}Battle\r\n\r\n");
+            builder.Append($"{SetTextColor(255, 255, 255)} >{SetTextColor(32, 255, 32)}Play\t"); 
                 if (currentOption == PlayMenu.PlayMenuOptions.SinglePlayer)
-                    builder.Append($" {SetColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetColor(32, 255, 32)}Single Player\r\n");
+                    builder.Append($" {SetTextColor(255, 255, 255)}{MenuAnimation(isAnimated)}{SetTextColor(32, 255, 32)}Single Player\r\n");
                 else
-                    builder.Append($" {SetColor(255, 255, 255)}Single Player\r\n");
-            builder.Append($"{SetColor(144, 144, 144)}Settings");
+                    builder.Append($" {SetTextColor(255, 255, 255)}Single Player\r\n");
+            builder.Append($"{SetTextColor(144, 144, 144)}Settings");
                 if (currentOption == PlayMenu.PlayMenuOptions.Multiplayer)
-                    builder.Append($" {SetColor(255, 255, 255)}{MenuAnimation(false)}{SetColor(144, 144, 144)}Multi Player\r\n");
+                    builder.Append($" {SetTextColor(255, 255, 255)}{MenuAnimation(false)}{SetTextColor(144, 144, 144)}Multi Player\r\n");
                 else
-                    builder.Append($" {SetColor(144, 144, 144)}Multi Player\r\n");
-            builder.Append($"{SetColor(144, 144, 144)}Exit");
+                    builder.Append($" {SetTextColor(144, 144, 144)}Multi Player\r\n");
+            builder.Append($"{SetTextColor(144, 144, 144)}Exit");
 
             Console.WriteLine(builder.ToString());
         }
@@ -121,7 +125,97 @@ namespace SeaBattle
         private static string MenuAnimation(bool isAnimated)
             => isAnimated ? " >" : "> ";
 
-        private static string SetColor(byte red, byte green, byte blue)
+        #endregion
+
+        public static void RenderMapEditor(this Map map)
+        {
+            Console.Clear();
+
+            StringBuilder builder = new($"{SetTextColor(255, 255, 255)}   ");
+            builder.AppendNumColumns();
+
+            Vector2 i;
+            for (i.y = 0; i.y < Map.Height; i.y++)
+            {
+                builder.Append($"{(i.y + 1).ToString("00")} ");
+
+                for (i.x = 0; i.x < Map.Width; i.x++)
+                {
+                    builder.Append(map[i, Map.mapType.ship] ? 'x' : '.');
+                    builder.Append(' ');
+                }
+;
+
+                builder.Append('\n');
+            }
+
+            Console.WriteLine(builder.ToString());
+        }
+
+        public static void RenderSinglePlayer(this Map map, Vector2 playerPosition)
+        {
+            Console.Clear();
+
+            StringBuilder builder = new($"{SetTextColor(255, 255, 255)}   ");
+            builder.AppendNumColumns();
+
+            Vector2 i;
+            for (i.y = 0; i.y < Map.Height; i.y++)
+            {
+                builder.Append($"{(i.y + 1).ToString("00")} ");
+
+                for (i.x = 0; i.x < Map.Width; i.x++)
+                {
+                    if (i == playerPosition)
+                    {
+                        builder.Append($"{SetTextColor(0, 0, 0)}{SetBGColor(255, 255, 255)}");
+
+                        builder.Append(RenderedTile());
+
+                        builder.Append($"{SetTextColor(255, 255, 255)}{SetBGColor(0, 0, 0)}");
+                    }
+                    else
+                    {
+                        builder.Append(RenderedTile());
+                    }
+
+                    builder.Append(' ');
+                }
+
+                builder.Append('\n');
+            }
+
+            Console.WriteLine(builder.ToString());
+
+            char RenderedTile()
+            {
+                (bool ship, bool shot) = map[i];
+
+                if (!shot)
+                    return ' ';
+               
+                return ship ? 'x' : '.';
+            }
+        }
+
+        private static string SetTextColor(byte red, byte green, byte blue)
             => $"\x1b[38;2;{red};{green};{blue}m";
+
+        private static string SetBGColor(byte red, byte green, byte blue)
+            => $"\x1b[48;2;{red};{green};{blue}m";
+    }
+
+    internal static class RendererHelper
+    {
+        internal static void AppendNumColumns(this StringBuilder builder)
+        {
+            for (int i = 0; i < Map.Width; i++)
+            {
+                builder.Append((char)(i + 'A'));
+                builder.Append(" ");
+            }
+
+            builder.Append('\n');
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace SeaBattle
+﻿namespace SeaBattle.scripts.GameStateMachine.Menu
 {
     public class ExitMenu : BaseGameState
     {
@@ -18,7 +18,7 @@
         {
             base.Update();
 
-            (moveInput, selectInput, deselectInput) = inputKeys.MenuInputHandler();
+            (moveInput.y, selectInput, deselectInput) = inputKeys.MenuInputHandler();
 
             ChangeOption();
             SelectOption();
@@ -34,13 +34,12 @@
 
         private void ChangeOption()
         {
-            if (moveInput == 0)
+            if (moveInput.y == 0)
                 return;
 
-            currentOption += moveInput;
+            currentOption += moveInput.y;
 
-            currentOption = currentOption < 0 ? currentOption + ExitMenuOptionsLen : currentOption;
-            currentOption = currentOption >= (ExitMenuOptions)ExitMenuOptionsLen ? 0 : currentOption;
+            currentOption = (ExitMenuOptions)(((int)currentOption + 4) % 4);
 
             somethingChanged = true;
         }

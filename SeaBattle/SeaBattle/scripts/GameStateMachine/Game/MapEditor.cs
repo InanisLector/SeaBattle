@@ -1,11 +1,11 @@
 ﻿using IntVector2;
+using SeaBattle.scripts;
 
-namespace SeaBattle
+namespace SeaBattle.scripts.GameStateMachine.Game
 {
     public class MapEditor : BaseGameState
     {
         private bool isChoosingShip = true;
-        private new Vector2 moveInput;
         private int currentShipType = 3;
         private int[] shipsAvailable = new int[4]; // Ship size corresponds (ship size = index - 1)
 
@@ -32,6 +32,13 @@ namespace SeaBattle
                 ShipChoosingUpdate();
             else
                 ShipPlacingUpdate();
+        }
+
+        protected override void Render()
+        {
+            base.Render();
+
+            info.player1map.RenderMapEditor();
         }
 
         #region Ship choosing

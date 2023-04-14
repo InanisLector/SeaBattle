@@ -1,4 +1,7 @@
-﻿namespace SeaBattle
+﻿using SeaBattle.scripts;
+using SeaBattle.scripts.GameStateMachine;
+
+namespace SeaBattle
 {
     class Program
     {

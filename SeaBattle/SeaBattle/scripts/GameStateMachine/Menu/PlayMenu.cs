@@ -1,6 +1,4 @@
-﻿using static SeaBattle.ExitMenu;
-
-namespace SeaBattle
+﻿namespace SeaBattle.scripts.GameStateMachine.Menu
 {
     public class PlayMenu : BaseGameState
     {
@@ -20,7 +18,7 @@ namespace SeaBattle
         {
             base.Update();
 
-            (moveInput, selectInput, deselectInput) = inputKeys.MenuInputHandler();
+            (moveInput.y, selectInput, deselectInput) = inputKeys.MenuInputHandler();
 
             ChangeOption();
             SelectOption();
@@ -37,13 +35,12 @@ namespace SeaBattle
 
         private void ChangeOption()
         {
-            if (moveInput == 0)
+            if (moveInput.y == 0)
                 return;
 
-            currentOption += moveInput;
+            currentOption += moveInput.y;
 
-            currentOption = currentOption < 0 ? currentOption + ExitMenuOptionsLen : currentOption;
-            currentOption = currentOption >= (PlayMenuOptions)PlayMenuOptionsLen ? 0 : currentOption;
+            currentOption = (PlayMenuOptions)((int)(currentOption + PlayMenuOptionsLen) % PlayMenuOptionsLen);
 
             somethingChanged = true;
         }
@@ -55,6 +52,7 @@ namespace SeaBattle
             switch (currentOption)
             {
                 case PlayMenuOptions.SinglePlayer:
+                    sceneManager.ChangeCurrentState(sceneManager.singlePlayer);
                     break;
 
                 case PlayMenuOptions.Multiplayer:
